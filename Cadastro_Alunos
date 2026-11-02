@@ -1,0 +1,84 @@
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char nomes[50][100];
+    float notas[50];
+    int opcao, quantidade = 0;
+    int i;
+
+    do {
+        printf("\n===== SISTEMA DE ALUNOS =====\n");
+        printf("1 - Cadastrar aluno\n");
+        printf("2 - Listar alunos\n");
+        printf("3 - Consultar resultados\n");
+        printf("0 - Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+        getchar();
+
+        switch (opcao) {
+
+            case 1:
+                if (quantidade < 50) {
+                    printf("Nome do aluno: ");
+                    fgets(nomes[quantidade], 100, stdin);
+
+                    nomes[quantidade][strcspn(
+                        nomes[quantidade], "\n")] = '\0';
+
+                    printf("Nota do aluno: ");
+                    scanf("%f", &notas[quantidade]);
+
+                    quantidade++;
+
+                    printf("Aluno cadastrado com sucesso!\n");
+                } else {
+                    printf("Limite de alunos atingido!\n");
+                }
+                break;
+
+            case 2:
+                printf("\n--- ALUNOS CADASTRADOS ---\n");
+
+                for (i = 0; i < quantidade; i++) {
+                    printf("%d - %s\n", i + 1, nomes[i]);
+                }
+
+                if (quantidade == 0) {
+                    printf("Nenhum aluno cadastrado.\n");
+                }
+                break;
+
+            case 3:
+                printf("\n--- RESULTADOS ---\n");
+
+                for (i = 0; i < quantidade; i++) {
+                    printf("\nAluno: %s\n", nomes[i]);
+                    printf("Nota: %.2f\n", notas[i]);
+
+                    if (notas[i] >= 7) {
+                        printf("Situacao: Aprovado!\n");
+                    } else {
+                        printf("Situacao: Reprovado!\n");
+                    }
+                }
+
+                if (quantidade == 0) {
+                    printf("Nenhum aluno cadastrado.\n");
+                }
+                break;
+
+            case 0:
+                printf("Encerrando o sistema...\n");
+                break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
+
+    } while (opcao != 0);
+
+    return 0;
+}
